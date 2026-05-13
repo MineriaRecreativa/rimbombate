@@ -78,7 +78,7 @@ export default function Home() {
   const [alienX, setAlienX] = useState(0);
   const [shipX, setShipX] = useState(0);
   const [bullets, setBullets] = useState<Bullet[]>([]);
-  const alienColor = "#84cc16";
+  const alienColor = "#ec4899";
   const [pixelCfg, setPixelCfg] = useState({ px: 12, gap: 3 });
 
   const tRef      = useRef(0);
