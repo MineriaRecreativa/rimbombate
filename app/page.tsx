@@ -78,7 +78,7 @@ export default function Home() {
   const [alienX, setAlienX] = useState(0);
   const [shipX, setShipX] = useState(0);
   const [bullets, setBullets] = useState<Bullet[]>([]);
-  const [alienColor, setAlienColor] = useState(PALETTE[0]);
+  const alienColor = "#84cc16";
   const [pixelCfg, setPixelCfg] = useState({ px: 12, gap: 3 });
 
   const tRef      = useRef(0);
@@ -160,11 +160,6 @@ export default function Home() {
     return () => clearInterval(id);
   }, []);
 
-  // Alien color flash
-  useEffect(() => {
-    const id = setInterval(() => setAlienColor(randomColor()), 400);
-    return () => clearInterval(id);
-  }, []);
 
   if (!winW) return <div className="h-screen bg-black" />;
 
