@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 // 0=empty, 1=body, 2=antler, 3=extremity
 const ALIEN = [
   [0,0,2,0,0,0,0,0,2,0,0],
@@ -10,9 +13,23 @@ const ALIEN = [
   [0,0,0,3,3,0,3,3,0,0,0],
 ];
 
-const COLORS = { 1: "#f472b6", 2: "#f472b6", 3: "#f472b6" } as const;
+const PALETTE = [
+  "#f472b6", "#a78bfa", "#34d399", "#fb923c",
+  "#60a5fa", "#f87171", "#facc15", "#e879f9",
+];
+
+function randomColor() {
+  return PALETTE[Math.floor(Math.random() * PALETTE.length)];
+}
 
 function SpaceInvader() {
+  const [color, setColor] = useState(PALETTE[0]);
+
+  useEffect(() => {
+    const id = setInterval(() => setColor(randomColor()), 400);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <>
       <style>{`
@@ -29,10 +46,10 @@ function SpaceInvader() {
           0%, 100% { transform: translateY(0px); }
           50%       { transform: translateY(4px); }
         }
-        .antler { animation: antler-bob 0.5s ease-in-out infinite; }
+        .antler   { animation: antler-bob 0.5s ease-in-out infinite; }
         .antler-r { animation: antler-bob 0.5s ease-in-out infinite; animation-delay: 0.15s; }
-        .limb { animation: limb-kick 0.4s ease-in-out infinite; }
-        .limb-r { animation: limb-kick 0.4s ease-in-out infinite; animation-delay: 0.2s; }
+        .limb     { animation: limb-kick 0.4s ease-in-out infinite; }
+        .limb-r   { animation: limb-kick 0.4s ease-in-out infinite; animation-delay: 0.2s; }
       `}</style>
       <div
         className="absolute top-8 right-8 flex flex-col gap-[3px]"
@@ -54,7 +71,7 @@ function SpaceInvader() {
                 <div
                   key={c}
                   className={`w-3 h-3 ${cls}`}
-                  style={{ backgroundColor: COLORS[cell as 1 | 2 | 3] }}
+                  style={{ backgroundColor: color }}
                 />
               );
             })}
